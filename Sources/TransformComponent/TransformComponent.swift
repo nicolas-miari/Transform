@@ -85,7 +85,9 @@ extension TransformComponent {
   public func insertChild(_ child: TransformComponent, at index: Int) {
     child.removeFromParent()
 
-    children.insert(child, at: index)
+    let safeIndex = min(index, children.count)
+
+    children.insert(child, at: safeIndex)
     child.parent = self
   }
 
@@ -112,7 +114,9 @@ extension TransformComponent {
   }
 
   public func removeChild(_ child: TransformComponent) {
-    guard let index = index(of: child) else { return }
+    guard let index = index(of: child) else {
+      return
+    }
     _ = try? removeChild(at: index)
   }
 
