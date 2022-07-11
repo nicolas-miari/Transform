@@ -1,5 +1,6 @@
 import Foundation
 import Component
+import MatrixUtils
 import simd
 
 /**
@@ -23,7 +24,7 @@ public class TransformComponent: Component {
 
    Updated automatically when the local matrix of the receiver or one of its ancestors is updated.
    */
-  private (set) public var world: float4x4 = matrix_identity_float4x4
+  private (set) public var world: float4x4 = .identity
 
   /**
    The parent transform component in the hierarchy. Nil if root.
@@ -42,8 +43,7 @@ public class TransformComponent: Component {
   // MARK: - Designated Initializer
 
   public init() {
-    local = matrix_identity_float4x4
-    world = matrix_identity_float4x4
+    local = .identity
   }
 
   // MARK: - Codable
@@ -136,17 +136,6 @@ extension TransformComponent {
 }
 
 // MARK: - Supporting Types and Extensions
-
-extension simd_float4x4: Codable {
-  public init(from decoder: Decoder) throws {
-    var container = try decoder.unkeyedContainer()
-    try self.init(container.decode([SIMD4<Float>].self))
-  }
-  public func encode(to encoder: Encoder) throws {
-    var container = encoder.unkeyedContainer()
-    try container.encode([columns.0,columns.1, columns.2, columns.3])
-  }
-}
 
 public enum TransformComponentError: LocalizedError {
   case indexOutOfBounds

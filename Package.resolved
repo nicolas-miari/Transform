@@ -8,6 +8,15 @@
         "revision" : "6bd867eaf76f2617d19ec615440aa2660a0597e5",
         "version" : "0.0.1"
       }
+    },
+    {
+      "identity" : "matrixutils",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/nicolas-miari/MatrixUtils.git",
+      "state" : {
+        "revision" : "8f2363edca6bd853f5d38034a3314fe5584a6163",
+        "version" : "0.0.0"
+      }
     }
   ],
   "version" : 2
