@@ -32,6 +32,9 @@ let package = Package(
             ]),
         .testTarget(
             name: "TransformComponentTests",
-            dependencies: ["TransformComponent"]),
+            dependencies: [
+              "TransformComponent",
+              "MatrixUtils",
+            ]),
     ]
 )

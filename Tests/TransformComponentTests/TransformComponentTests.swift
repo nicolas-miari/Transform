@@ -1,4 +1,6 @@
 import XCTest
+import simd
+import MatrixUtils
 @testable import TransformComponent
 
 final class TransformComponentTests: XCTestCase {
@@ -167,6 +169,28 @@ final class TransformComponentTests: XCTestCase {
   // MARK: - Transform Tests
 
   func testSetLocalTransformUpdatesGlobal() {
-    // TODO: Write
+    // GIVEN
+    let transform = TransformComponent()
+    let scale = float4x4(scale: 2)
+
+    // WHEN
+    transform.local = scale
+
+    // THEN
+    XCTAssertEqual(transform.world, scale)
+  }
+
+  func testSetLocalTransformUpdatesDescendantGlobal() {
+    // GIVEN
+    let parent = TransformComponent()
+    let child = TransformComponent()
+    let scale = float4x4(scale: 2)
+    parent.addChild(child)
+
+    // WHEN
+    parent.local = scale
+
+    // THEN
+    XCTAssertEqual(parent.world, scale)
   }
 }
