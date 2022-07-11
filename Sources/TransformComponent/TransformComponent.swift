@@ -7,6 +7,14 @@ import simd
  */
 public class TransformComponent: Component {
 
+  // MARK: - Designated Initializer
+
+  public init() {
+    local = .identity
+  }
+
+  // MARK: - Matrix Manipulation
+
   /**
    The matrix that expresses this transform in the coordinate system of the parent.
 
@@ -26,27 +34,13 @@ public class TransformComponent: Component {
    */
   private (set) public var world: float4x4 = .identity
 
-  /**
-   The parent transform component in the hierarchy. Nil if root.
-   */
-  private(set) public var parent: TransformComponent? {
-    didSet {
-      updateWorldTransformAndPropagateToDescendants()
-    }
+
+  private func updateWorldTransformAndPropagateToDescendants() {
+    world = (parent?.world ?? matrix_identity_float4x4) * local
+    children.forEach {  $0.updateWorldTransformAndPropagateToDescendants() }
   }
 
-  /**
-   The child transform components in the hierarchy.
-   */
-  private(set) public var children: [TransformComponent] = []
-
-  // MARK: - Designated Initializer
-
-  public init() {
-    local = .identity
-  }
-
-  // MARK: - Codable
+  // MARK: - Codable Support
 
   enum CodingKeys: String, CodingKey {
     case local
@@ -63,17 +57,21 @@ public class TransformComponent: Component {
     try container.encode(local, forKey: .local)
   }
 
-  // MARK: - World Transform Propagation
+  // MARK: - Tree Hierarchy
 
-  private func updateWorldTransformAndPropagateToDescendants() {
-    world = (parent?.world ?? matrix_identity_float4x4) * local
-    children.forEach {  $0.updateWorldTransformAndPropagateToDescendants() }
+  /**
+   The parent transform component in the hierarchy. Nil if root.
+   */
+  private(set) public var parent: TransformComponent? {
+    didSet {
+      updateWorldTransformAndPropagateToDescendants()
+    }
   }
-}
 
-// MARK: - Tree Hierarchy
-
-extension TransformComponent {
+  /**
+   The child transform components in the hierarchy.
+   */
+  private(set) public var children: [TransformComponent] = []
 
   /**
    If the passed transform is already a child of the receiver, it is reinserted at the specified
