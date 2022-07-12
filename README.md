@@ -1,3 +1,3 @@
-# TransformComponent
+# Transform
 
-A description of this package.
+The Transform component for entities in the ECS engine.
