@@ -5,7 +5,7 @@ import simd
 
 /**
  */
-public class TransformComponent: Component {
+public class Transform: Component {
 
   // MARK: - Designated Initializer
 
@@ -62,7 +62,7 @@ public class TransformComponent: Component {
   /**
    The parent transform component in the hierarchy. Nil if root.
    */
-  private(set) public var parent: TransformComponent? {
+  private(set) public var parent: Transform? {
     didSet {
       updateWorldTransformAndPropagateToDescendants()
     }
@@ -71,7 +71,7 @@ public class TransformComponent: Component {
   /**
    The child transform components in the hierarchy.
    */
-  private(set) public var children: [TransformComponent] = []
+  private(set) public var children: [Transform] = []
 
   /**
    If the passed transform is already a child of the receiver, it is reinserted at the specified
@@ -80,7 +80,7 @@ public class TransformComponent: Component {
    After insertion, the world matrix of the new child and all its descendants are recomputed
    recursively.
    */
-  public func insertChild(_ child: TransformComponent, at index: Int) {
+  public func insertChild(_ child: Transform, at index: Int) {
     child.removeFromParent()
 
     let safeIndex = min(index, children.count)
@@ -93,9 +93,9 @@ public class TransformComponent: Component {
    Removes the child at the specified index and returns it. Throws if the index is out fo bounds.
    */
   @discardableResult
-  public func removeChild(at index: Int) throws -> TransformComponent {
+  public func removeChild(at index: Int) throws -> Transform {
     guard index < children.count else {
-      throw TransformComponentError.indexOutOfBounds
+      throw TransformError.indexOutOfBounds
     }
     let child = children.remove(at: index)
     child.parent = nil
@@ -107,18 +107,18 @@ public class TransformComponent: Component {
     children.swapAt(index1, index2)
   }
 
-  public func index(of child: TransformComponent) -> Int? {
+  public func index(of child: Transform) -> Int? {
     return children.firstIndex(where: { $0 === child })
   }
 
-  public func removeChild(_ child: TransformComponent) {
+  public func removeChild(_ child: Transform) {
     guard let index = index(of: child) else {
       return
     }
     _ = try? removeChild(at: index)
   }
 
-  public func addChild(_ child: TransformComponent) {
+  public func addChild(_ child: Transform) {
     insertChild(child, at: children.count)
   }
 
@@ -135,6 +135,6 @@ public class TransformComponent: Component {
 
 // MARK: - Supporting Types and Extensions
 
-public enum TransformComponentError: LocalizedError {
+public enum TransformError: LocalizedError {
   case indexOutOfBounds
 }

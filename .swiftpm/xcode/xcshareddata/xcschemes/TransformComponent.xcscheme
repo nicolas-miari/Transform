@@ -34,6 +34,20 @@
                ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Transform"
+               BuildableName = "Transform"
+               BlueprintName = "Transform"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -60,6 +74,16 @@
                BlueprintIdentifier = "TransformComponentTests"
                BuildableName = "TransformComponentTests"
                BlueprintName = "TransformComponentTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "TransformTests"
+               BuildableName = "TransformTests"
+               BlueprintName = "TransformTests"
                ReferencedContainer = "container:">
             </BuildableReference>
          </TestableReference>
