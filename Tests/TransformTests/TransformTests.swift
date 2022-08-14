@@ -1,7 +1,7 @@
 import XCTest
 import simd
 import MatrixUtils
-@testable import TransformComponent
+@testable import Transform
 
 final class TransformComponentTests: XCTestCase {
 
@@ -15,7 +15,7 @@ final class TransformComponentTests: XCTestCase {
 
   func testInitialParentNil() {
     // GIVEN
-    let transform = TransformComponent()
+    let transform = Transform()
 
     // THEN
     XCTAssertNil(transform.parent)
@@ -25,8 +25,8 @@ final class TransformComponentTests: XCTestCase {
 
   func testAddChildParentSet() {
     // GIVEN
-    let child = TransformComponent()
-    let parent = TransformComponent()
+    let child = Transform()
+    let parent = Transform()
 
     // WHEN
     parent.addChild(child)
@@ -37,8 +37,8 @@ final class TransformComponentTests: XCTestCase {
 
   func testAddChildCountIsOne() {
     // GIVEN
-    let child = TransformComponent()
-    let parent = TransformComponent()
+    let child = Transform()
+    let parent = Transform()
 
     // WHEN
     parent.addChild(child)
@@ -49,8 +49,8 @@ final class TransformComponentTests: XCTestCase {
 
   func testAddChildRetrieveSameInstance() {
     // GIVEN
-    let child = TransformComponent()
-    let parent = TransformComponent()
+    let child = Transform()
+    let parent = Transform()
 
     // WHEN
     parent.addChild(child)
@@ -61,8 +61,8 @@ final class TransformComponentTests: XCTestCase {
 
   func testAddChildRemoveEmptiesChildren() throws {
     // GIVEN
-    let child = TransformComponent()
-    let parent = TransformComponent()
+    let child = Transform()
+    let parent = Transform()
 
     // WHEN
     parent.addChild(child)
@@ -73,8 +73,8 @@ final class TransformComponentTests: XCTestCase {
 
   func testAddChildRemoveClearsParent() throws {
     // GIVEN
-    let child = TransformComponent()
-    let parent = TransformComponent()
+    let child = Transform()
+    let parent = Transform()
 
     // WHEN
     parent.addChild(child)
@@ -85,8 +85,8 @@ final class TransformComponentTests: XCTestCase {
 
   func testAddChildRemoveFromParentEmptiesChildren() {
     // GIVEN
-    let child = TransformComponent()
-    let parent = TransformComponent()
+    let child = Transform()
+    let parent = Transform()
 
     // WHEN
     parent.addChild(child)
@@ -98,8 +98,8 @@ final class TransformComponentTests: XCTestCase {
 
   func testAddChildRemoveFromParentClearsParent() {
     // GIVEN
-    let child = TransformComponent()
-    let parent = TransformComponent()
+    let child = Transform()
+    let parent = Transform()
 
     // WHEN
     parent.addChild(child)
@@ -111,8 +111,8 @@ final class TransformComponentTests: XCTestCase {
 
   func testAddChildPastCount() {
     // GIVEN
-    let child = TransformComponent()
-    let parent = TransformComponent()
+    let child = Transform()
+    let parent = Transform()
 
     // WHEN:
     parent.insertChild(child, at: 10)
@@ -123,9 +123,9 @@ final class TransformComponentTests: XCTestCase {
 
   func testChildrenAddedAtTheEnd() {
     // GIVEN
-    let parent = TransformComponent()
-    let child1 = TransformComponent()
-    let child2 = TransformComponent()
+    let parent = Transform()
+    let child1 = Transform()
+    let child2 = Transform()
 
     // WHEN:
     parent.addChild(child1)
@@ -138,9 +138,9 @@ final class TransformComponentTests: XCTestCase {
 
   func testRemoveUnknownChildNoOp() {
     // GIVEN
-    let parent = TransformComponent()
-    let child1 = TransformComponent()
-    let child2 = TransformComponent()
+    let parent = Transform()
+    let child1 = Transform()
+    let child2 = Transform()
 
     // WHEN:
     parent.addChild(child1)
@@ -152,9 +152,9 @@ final class TransformComponentTests: XCTestCase {
 
   func testSwapChildren() {
     // GIVEN
-    let parent = TransformComponent()
-    let child1 = TransformComponent()
-    let child2 = TransformComponent()
+    let parent = Transform()
+    let child1 = Transform()
+    let child2 = Transform()
 
     // WHEN:
     parent.addChild(child1)
@@ -170,7 +170,7 @@ final class TransformComponentTests: XCTestCase {
 
   func testSetLocalTransformUpdatesGlobal() {
     // GIVEN
-    let transform = TransformComponent()
+    let transform = Transform()
     let scale = float4x4(scale: 2)
 
     // WHEN
@@ -182,8 +182,8 @@ final class TransformComponentTests: XCTestCase {
 
   func testSetLocalTransformUpdatesDescendantGlobal() {
     // GIVEN
-    let parent = TransformComponent()
-    let child = TransformComponent()
+    let parent = Transform()
+    let child = Transform()
     let scale = float4x4(scale: 2)
     parent.addChild(child)
 
